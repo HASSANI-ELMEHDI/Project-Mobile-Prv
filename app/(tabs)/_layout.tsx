@@ -1,7 +1,9 @@
 import Colors from '@/constants/Colors';
+import { useAuth } from '@clerk/clerk-expo';
 import { FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 const Layout = () => {
+  const { isLoaded, isSignedIn } = useAuth();
   return (
     <Tabs
     screenOptions={{

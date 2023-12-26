@@ -1,98 +1,107 @@
 import Colors from '@/constants/Colors';
-import { defaultStyles } from '@/constants/Styles';
-import { useWarmUpBrowser } from '@/hooks/useWarmUpBrowser';
+import {  useSignIn } from '@clerk/clerk-expo';
 import { useOAuth } from '@clerk/clerk-expo';
 import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
-import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
-import { StyleSheet } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import { View, StyleSheet, TextInput, Text, TouchableOpacity, Button } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
+import { OtpInput } from 'react-native-otp-entry';
 
+// https://github.com/clerkinc/clerk-expo-starter/blob/main/components/OAuth.tsx
+import { useWarmUpBrowser } from '@/hooks/useWarmUpBrowser';
+import { defaultStyles } from '@/constants/Styles';
+import { useAuth } from '@/contex/LoginContex';
+
+
+enum Strategy {
+  Google = 'oauth_google',
+}
 const Page = () => {
-
   useWarmUpBrowser();
-  const { startOAuthFlow } = useOAuth({ strategy: 'oauth_google' });
-  const onSelectAuth = React.useCallback(async () => {
-    try {
-      var createdSessionId  =(await startOAuthFlow()).createdSessionId;
-      var setActive  =(await startOAuthFlow()).setActive;
-        if(!createdSessionId)  createdSessionId="555";
-      if (createdSessionId) {
-        setActive!({ session: createdSessionId });
-        router.push('/(modals)/loginCode');
-      } else {
-        // Use signIn or signUp for next steps such as MFA
-      }
-    } catch (err) {
-      console.error("OAuth error", err);
+
+  const router = useRouter();
+  const { startOAuthFlow: googleAuth } = useOAuth({ strategy: 'oauth_google' });
+  const { emailAddress, setPassword, password, setEmailAddress } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const { signIn, setActive, isLoaded } = useSignIn();
+  const onSelectAuth = async (strategy: Strategy) => {
+    const selectedAuth = {
+      [Strategy.Google]: googleAuth,
+    }[strategy];
+    if (!isLoaded) {
+      return;
     }
-  }, []);
-
-
- /* const onSelectAuth = async () => {
-    const selectedAuth =  googleAuth
+    setLoading(true);
     try {
-      const response = await selectedAuth();
-      console.log('Full response:'+ response);
-      console.log('test '+response.createdSessionId);
-  
-      const { createdSessionId, setActive } = response;
-      console.log('createdSessionId:'+ createdSessionId);
+      const { createdSessionId, setActive} = await selectedAuth();
 
-//if the user is authentificated
       if (createdSessionId) {
-        console.log("heyyyyyyyyyyyyyyyyyyyyy true");
         setActive!({ session: createdSessionId });
         router.back();
       }
     } catch (err) {
       console.error('OAuth error', err);
+    }finally {
+      setLoading(false);
     }
   };
-  */
+
+
+ 
+
   return (
     <View style={styles.container}>
-    <TextInput
+      <Spinner visible={loading} />
+      <TextInput
         autoCapitalize="none"
         placeholder="Email"
+        value={emailAddress}
+        onChangeText={setEmailAddress} 
         style={[defaultStyles.inputField, { marginBottom: 30 }]}
       />
-      <TouchableOpacity style={defaultStyles.btn}>
+      <TouchableOpacity style={defaultStyles.btn} onPress={() => router.replace('/(modals)/loginCode')}>
         <Text style={defaultStyles.btnText}>Continue</Text>
       </TouchableOpacity>
+
       <View style={styles.seperatorView}>
         <View
-          style={styles.separator}
+          style={{
+            flex: 1,
+            borderBottomColor: 'black',
+            borderBottomWidth: StyleSheet.hairlineWidth,
+          }}
         />
         <Text style={styles.seperator}>or</Text>
         <View
-           style={styles.separator}
+          style={{
+            flex: 1,
+            borderBottomColor: 'black',
+            borderBottomWidth: StyleSheet.hairlineWidth,
+          }}
         />
-        </View>
-        <View style={{ gap: 20 }}>
-         <TouchableOpacity style={styles.btnOutline} onPress={onSelectAuth}>
+      </View>
+
+      <View style={{ gap: 20 }}>
+        <TouchableOpacity style={styles.btnOutline} onPress={() => onSelectAuth(Strategy.Google)}>
           <Ionicons name="md-logo-google" size={24} style={defaultStyles.btnIcon} />
           <Text style={styles.btnOutlineText}>Continue with Google</Text>
         </TouchableOpacity>
+
       </View>
     </View>
   );
 };
 
-
 export default Page;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     padding: 26,
   },
-  separator:{
-    flex: 1,
-    borderBottomColor: 'black',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
+
   seperatorView: {
     flexDirection: 'row',
     gap: 10,
