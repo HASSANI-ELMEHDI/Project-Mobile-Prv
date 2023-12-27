@@ -1,7 +1,7 @@
 import Colors from '@/constants/Colors';
 import {  useSignIn } from '@clerk/clerk-expo';
 import React, { useState } from 'react';
-import { View, StyleSheet, TextInput, Text, TouchableOpacity, Button } from 'react-native';
+import { View, StyleSheet, TextInput, Text, TouchableOpacity, Button, Image } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { OtpInput } from 'react-native-otp-entry';
 
@@ -60,8 +60,11 @@ const Page = () => {
       <TouchableOpacity style={[defaultStyles.btn,{marginTop : 30}]} onPress={onSignInPress}>
         <Text style={defaultStyles.btnText}>Connect</Text>
       </TouchableOpacity>
-    
+      <View style={styles.container1}>
+          <Image source={require('@/assets/images/logo30.png')} style={styles.images}/>
+      </View>
      </View>
+
 
   );
 };
@@ -74,6 +77,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 26,
   },
+  container1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+    images: {
+      width: 200,
+      height: 200,
+      resizeMode: 'contain',   
+    },
 
   seperatorView: {
     flexDirection: 'row',

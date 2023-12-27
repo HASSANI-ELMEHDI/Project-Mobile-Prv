@@ -7,32 +7,28 @@ import { Link } from 'expo-router';
 
 const categories = [
   {
-    name: 'Tiny homes',
-    icon: 'home',
+    name: 'Rooms',
+    icon: 'single-bed',
   },
   {
-    name: 'Cabins',
+    name: 'Shared rooms',
+    icon: 'home-filled',
+  },
+  {
+    name: 'Apartments',
+    icon: 'location-city',
+  },
+  {
+    name: 'Villas',
     icon: 'house-siding',
   },
   {
-    name: 'Trending',
-    icon: 'local-fire-department',
-  },
-  {
-    name: 'Play',
-    icon: 'videogame-asset',
-  },
-  {
-    name: 'City',
+    name: 'Hotels',
     icon: 'apartment',
   },
   {
-    name: 'Beachfront',
-    icon: 'beach-access',
-  },
-  {
-    name: 'Countryside',
-    icon: 'nature-people',
+    name: 'Houses',
+    icon: 'home-work',
   },
 ];
 

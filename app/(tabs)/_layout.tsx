@@ -29,19 +29,10 @@ const Layout = () => {
       }}
     />
     <Tabs.Screen
-      name="trips"
+      name="reservations"
       options={{
-        tabBarLabel: 'Trips',
-        tabBarIcon: ({ size, color }) => <FontAwesome5 name="airbnb" size={size} color={color} />,
-      }}
-    />
-    <Tabs.Screen
-      name="inbox"
-      options={{
-        tabBarLabel: 'Inbox',
-        tabBarIcon: ({ size, color }) => (
-          <MaterialCommunityIcons name="message-outline" size={size} color={color} />
-        ),
+        tabBarLabel: 'Reservations',
+        tabBarIcon: ({ size, color }) => <FontAwesome5 name="calendar-minus" size={size} color={color} />,
       }}
     />
     <Tabs.Screen

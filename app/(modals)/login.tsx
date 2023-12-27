@@ -12,6 +12,7 @@ import { OtpInput } from 'react-native-otp-entry';
 import { useWarmUpBrowser } from '@/hooks/useWarmUpBrowser';
 import { defaultStyles } from '@/constants/Styles';
 import { useAuth } from '@/contex/LoginContex';
+import { Image } from 'react-native';
 
 
 enum Strategy {
@@ -53,6 +54,7 @@ const Page = () => {
   return (
     <View style={styles.container}>
       <Spinner visible={loading} />
+      <Text style={[styles.btnOutlineText,styles.text]}>Hoster!</Text>
       <TextInput
         autoCapitalize="none"
         placeholder="Email"
@@ -83,12 +85,17 @@ const Page = () => {
       </View>
 
       <View style={{ gap: 20 }}>
+      <Text style={[styles.btnOutlineText,styles.text]}>Lodger!</Text>
+
         <TouchableOpacity style={styles.btnOutline} onPress={() => onSelectAuth(Strategy.Google)}>
           <Ionicons name="md-logo-google" size={24} style={defaultStyles.btnIcon} />
           <Text style={styles.btnOutlineText}>Continue with Google</Text>
         </TouchableOpacity>
 
       </View>
+<View style={styles.container1}>
+  <Image source={require('@/assets/images/logo30.png')} style={styles.images}/>
+</View>
     </View>
   );
 };
@@ -96,12 +103,25 @@ const Page = () => {
 export default Page;
 
 const styles = StyleSheet.create({
+  text:{
+    marginBottom:20,
+    textAlign:'center'
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
     padding: 26,
   },
-
+  container1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+    images: {
+      width: 200,
+      height: 200,
+      resizeMode: 'contain',   
+    },
   seperatorView: {
     flexDirection: 'row',
     gap: 10,
