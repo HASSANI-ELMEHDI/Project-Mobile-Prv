@@ -1,25 +1,29 @@
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, Share, ScrollView, FlatList } from 'react-native';
-import listingsData from '@/assets/data/airbnb-listings.json';
+
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '@/constants/Colors';
 import { defaultStyles } from '@/constants/Styles';
-import { logement } from '@/constants/api';
+import { fetchData } from '@/constants/api';
 
 const { width } = Dimensions.get('window');
 const IMG_HEIGHT = 300;
 const DetailsPage = () => {
-
-  const { id } = useLocalSearchParams();
-
- const listing = logement(id);
-
   const renderItem = ({ item }:any) => (
     <Image source={{ uri: item }} style={styles.image} />
   );
 
- 
+  const { id } = useLocalSearchParams();
+  const [listingsData , setData] = useState([]);
+
+  useEffect(() => {
+    fetchData()
+      .then(data => {
+        setData(data);
+      });
+  }, []);
+  const listing = (listingsData as any[]).find((item) => item.id === id);
   const navigation = useNavigation();
 
   const shareListing = async () => {
@@ -59,7 +63,7 @@ const DetailsPage = () => {
   }, []);
 
 
- 
+
 
   return (
     <View style={styles.container}>
