@@ -3,7 +3,7 @@ import { useRouter } from 'expo-router';
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { View } from 'react-native';
-import MapView,{ MapMarker, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView,{ MapMarker, PROVIDER_GOOGLE } from 'react-native-maps';
 interface Geolocation {
     lon: number;
     lat: number;
@@ -40,7 +40,7 @@ const ListingsMap = ({listings}:Props) => {
             <MapMarker 
             onPress={()=>onMarker(item)}
             key={item.id}
-            coordinate={{latitude:item.latitude,longitude:item.longitude}}>
+            coordinate={{latitude:parseFloat(item.latitude),longitude: parseFloat(item.longitude)}}>
                 <View style={styles.marker}>
               <Text style={styles.markerText}>€ {item.price}</Text>
             </View>
