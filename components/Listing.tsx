@@ -23,8 +23,8 @@ const Listings = ({listing:items,category}:Props) => {
           setLoading(false);
         }, 200);
       }, [category]);
-      const renderRow: ListRenderItem<any> = ({ item }) => (
-        <Link href={`/listing/${item.id}`} asChild>
+      const renderRow: ListRenderItem<any> = ({ item }:any) => (
+        <Link href={`/listing/${item._id}`} asChild>
         <TouchableOpacity>
           <View style={styles.listings}>
           <Image source={{uri:item.medium_url}} style={styles.image}/>

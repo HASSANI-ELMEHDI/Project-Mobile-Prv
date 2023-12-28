@@ -14,7 +14,7 @@ const DetailsPage = () => {
     <Image source={{ uri: item }} style={styles.image} />
   );
 
-  const { id } = useLocalSearchParams();
+  const { _id } = useLocalSearchParams();
   const [listingsData , setData] = useState([]);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const DetailsPage = () => {
         setData(data);
       });
   }, []);
-  const listing = (listingsData as any[]).find((item) => item.id === id);
+  const listing = (listingsData as any[]).find((item) => item._id === _id);
   const navigation = useNavigation();
 
   const shareListing = async () => {
@@ -73,7 +73,7 @@ const DetailsPage = () => {
     <FlatList
         data={listing?.xl_picture_url}
         renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item:any, index:any) => index.toString()}
         horizontal={true} // Set to true if you want a horizontal list
       />
         <View style={styles.infoContainer}>

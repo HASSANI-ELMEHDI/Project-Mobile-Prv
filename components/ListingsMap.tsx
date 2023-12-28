@@ -11,7 +11,7 @@ interface Props{
 const ListingsMap = ({listings}:Props) => {
     const router=useRouter();
     const onMarker=(item:any)=>{
-        router.push(`/listing/${item.id}`)
+        router.push(`/listing/${item._id}`)
     }
   return (
     <View style={styles.container}>
