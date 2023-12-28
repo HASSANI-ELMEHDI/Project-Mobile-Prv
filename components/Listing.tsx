@@ -1,5 +1,5 @@
 import { defaultStyles } from '@/constants/Styles';
-import { Listing } from '@/interfaces/listing';
+
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
@@ -23,7 +23,7 @@ const Listings = ({listing:items,category}:Props) => {
           setLoading(false);
         }, 200);
       }, [category]);
-      const renderRow: ListRenderItem<Listing> = ({ item }) => (
+      const renderRow: ListRenderItem<any> = ({ item }) => (
         <Link href={`/listing/${item.id}`} asChild>
         <TouchableOpacity>
           <View style={styles.listings}>

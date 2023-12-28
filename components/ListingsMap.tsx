@@ -1,34 +1,16 @@
-import { Listing } from '@/interfaces/listing';
+
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { View } from 'react-native';
 import MapView,{ MapMarker, PROVIDER_GOOGLE } from 'react-native-maps';
-interface Geolocation {
-    lon: number;
-    lat: number;
-  }
-  
-  interface Geometry {
-    type: string;
-    coordinates: [number, number];
-  }
-  
-  const convertToGeometry = (geolocation: Geolocation): Geometry => {
-    const { lon, lat } = geolocation;
-    const geometry: Geometry = {
-      type: 'Point',
-      coordinates: [lon, lat],
-    };
-    return geometry;
-  };
 
 interface Props{
     listings:any
 }
 const ListingsMap = ({listings}:Props) => {
     const router=useRouter();
-    const onMarker=(item:Listing)=>{
+    const onMarker=(item:any)=>{
         router.push(`/listing/${item.id}`)
     }
   return (
@@ -40,7 +22,7 @@ const ListingsMap = ({listings}:Props) => {
             <MapMarker 
             onPress={()=>onMarker(item)}
             key={item.id}
-            coordinate={{latitude:parseFloat(item.latitude),longitude: parseFloat(item.longitude)}}>
+            coordinate={{latitude:item.latitude,longitude: item.longitude}}>
                 <View style={styles.marker}>
               <Text style={styles.markerText}>€ {item.price}</Text>
             </View>
