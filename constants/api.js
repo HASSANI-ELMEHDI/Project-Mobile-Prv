@@ -10,3 +10,15 @@ export const fetchData = () => {
     });
 };
 
+
+export const logement = (id) => {
+    return axios.get(`http://192.168.0.100:5000/logements/${id}`)
+      .then(response => {
+        return response.data;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+  
+
