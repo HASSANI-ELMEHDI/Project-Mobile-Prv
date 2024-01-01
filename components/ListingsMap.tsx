@@ -6,7 +6,7 @@ import { View } from 'react-native';
 import MapView,{ MapMarker, PROVIDER_GOOGLE } from 'react-native-maps';
 
 interface Props{
-    listings:any
+    listings:any[]
 }
 const ListingsMap = ({listings}:Props) => {
     const router=useRouter();

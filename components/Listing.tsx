@@ -27,7 +27,7 @@ const Listings = ({listing:items,category}:Props) => {
         <Link href={`/listing/${item._id}`} asChild>
         <TouchableOpacity>
           <View style={styles.listings}>
-          <Image source={{uri:item.medium_url}} style={styles.image}/>
+          <Image source={{uri:item["medium_url"][0]}} style={styles.image}/>
             <TouchableOpacity style={styles.heart}>
             <Ionicons name="heart-outline" size={24} color="#000" />
           </TouchableOpacity>

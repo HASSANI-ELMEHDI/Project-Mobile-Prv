@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const fetchData = () => {
-  return axios.get('http://192.168.0.131:5000/logements/')
+  return axios.get('http://192.168.0.197:5000/logements/')
     .then(response => {
       return response.data;
     })
@@ -11,7 +11,7 @@ export const fetchData = () => {
 };
 
 export const getLogementById = (id) => {
-  return axios.get(`http://192.168.0.131:5000/logements/${id}`)
+  return axios.get(`http://192.168.0.197:5000/logements/${id}`)
     .then(response => {
       return response.data;
     })

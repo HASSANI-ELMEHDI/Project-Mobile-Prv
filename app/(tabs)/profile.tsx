@@ -15,6 +15,7 @@ import { Feather, FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/ve
 import Colors from '@/constants/Colors';
 import { Link } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Page = () => {
   const { signOut, isSignedIn } = useAuth();
@@ -74,6 +75,9 @@ const Page = () => {
 
   return (
     <SafeAreaView style={defaultStyles.container}>
+      <ScrollView
+        contentContainerStyle={{ paddingBottom: 100 }}
+        scrollEventThrottle={16}>
       <View style={styles.headerContainer}>
         <Text style={styles.header}>Profile</Text>
         <Ionicons name="notifications-outline" size={26} />
@@ -158,6 +162,7 @@ const Page = () => {
           <Button title="Log In" color={Colors.dark} />
         </Link>
       )}
+      </ScrollView>
     </SafeAreaView>
   );
 };

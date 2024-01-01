@@ -10,11 +10,15 @@ import { fetchData } from '@/constants/api';
 const { width } = Dimensions.get('window');
 const IMG_HEIGHT = 300;
 const DetailsPage = () => {
+
+
+
+  
   const renderItem = ({ item }:any) => (
     <Image source={{ uri: item }} style={styles.image} />
   );
 
-  const { _id } = useLocalSearchParams();
+  const { id } = useLocalSearchParams();
   const [listingsData , setData] = useState([]);
 
   useEffect(() => {
@@ -23,14 +27,14 @@ const DetailsPage = () => {
         setData(data);
       });
   }, []);
-  const listing = (listingsData as any[]).find((item) => item._id === _id);
+  const listing = (listingsData as any[]).find((item) => item._id === id);
   const navigation = useNavigation();
 
   const shareListing = async () => {
     try {
       await Share.share({
-        title: listing.name,
-        url: listing.listing_url,
+        title: listing?.name,
+        url: listing?.listing_url,
       });
     } catch (err) {
       console.log(err);
@@ -70,12 +74,13 @@ const DetailsPage = () => {
       <ScrollView
         contentContainerStyle={{ paddingBottom: 100 }}
         scrollEventThrottle={16}>
-    <FlatList
+      <FlatList
         data={listing?.xl_picture_url}
         renderItem={renderItem}
         keyExtractor={(item:any, index:any) => index.toString()}
         horizontal={true} // Set to true if you want a horizontal list
-      />
+        />
+      
         <View style={styles.infoContainer}>
           <Text style={styles.name}>{listing?.name}</Text>
           <Text style={styles.location}>

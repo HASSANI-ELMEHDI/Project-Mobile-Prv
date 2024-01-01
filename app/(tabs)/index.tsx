@@ -11,7 +11,7 @@ import { fetchData } from '@/constants/api';
 
 
 const Page = () => {
-  const items = useMemo(() => listingsData as any, []);
+  
 
     const [category, setCategory] = useState<string>('Rooms');
   const onDataChanged = (category: string) => {
@@ -27,6 +27,9 @@ const Page = () => {
         setData(data);
       });
   }, []);
+  const items = useMemo(() => {
+    return listingsData;
+  }, [listingsData]);
 return (
     <View style={{ flex: 1, marginTop: 130}}>
       <Stack.Screen
@@ -34,7 +37,8 @@ return (
         header : () => <ExploreHeader onCategoryChanged={onDataChanged} />
       }}
       />
-      {/*<Listings listing={items} category={category}/>*/}
+       {/*<Listings listing={items} category={category}/>*/}
+      
       <ListingsMap listings={listingsData}/>
     </View>
 
